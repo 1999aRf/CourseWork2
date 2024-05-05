@@ -1,5 +1,6 @@
 package pro.sky.java.course2.examineservice.controllers;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import pro.sky.java.course2.examineservice.Question.Question;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,13 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.examineservice.service.QuestionService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/exam/java")
-public class JavaController {
+public class JavaQuestionController {
     private final QuestionService questionService;
 
-    public JavaController(QuestionService questionService) {
+    public JavaQuestionController(@Qualifier("javaQuestionService") QuestionService questionService) {
         this.questionService = questionService;
     }
 
@@ -29,7 +31,7 @@ public class JavaController {
     }
 
     @GetMapping
-    public Collection<Question> getAll() {
+    public List<Question> getAll() {
         return questionService.getAll();
     }
 

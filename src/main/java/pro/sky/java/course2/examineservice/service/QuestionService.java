@@ -3,6 +3,7 @@ package pro.sky.java.course2.examineservice.service;
 import pro.sky.java.course2.examineservice.Question.Question;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface QuestionService {
     Question add(String question, String answer);
@@ -11,7 +12,7 @@ public interface QuestionService {
 
     Question remove(Question question);
 
-    Collection<Question> getAll();
+    List<Question> getAll();
 
     Question getRandomQuestion();
 }

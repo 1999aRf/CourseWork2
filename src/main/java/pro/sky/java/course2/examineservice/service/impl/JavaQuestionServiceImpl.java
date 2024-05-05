@@ -1,18 +1,20 @@
-package pro.sky.java.course2.examineservice.service;
+package pro.sky.java.course2.examineservice.service.impl;
 
 import pro.sky.java.course2.examineservice.Question.Question;
 import org.springframework.stereotype.Service;
+import pro.sky.java.course2.examineservice.repositories.QuestionRepository;
+import pro.sky.java.course2.examineservice.service.QuestionService;
 
 import java.util.*;
 
 @Service
-public class JavaQuestionService implements QuestionService{
-    private final Set<Question> questions;
+public class JavaQuestionServiceImpl implements QuestionService {
+    private final QuestionRepository questionRepository;
     private final Random random;
 
-    public JavaQuestionService() {
-        this.questions = new HashSet<>();
-        this.random = new Random();
+    public JavaQuestionServiceImpl(QuestionRepository questionRepository, Random random) {
+        this.questionRepository = questionRepository;
+        this.random = random;
     }
 
     @Override
@@ -21,24 +23,24 @@ public class JavaQuestionService implements QuestionService{
     }
     @Override
     public Question add(Question question) {
-        questions.add(question);
+        questionRepository.add(question);
     return question;
     }
     @Override
     public Question remove(Question question) {
-        questions.remove(question);
+        questionRepository.remove(question);
     return question;
     }
     @Override
     public List<Question> getAll() {
-        return new ArrayList<>(questions);
+        return questionRepository.getAll();
     }
     @Override
     public Question getRandomQuestion() {
-        if (questions.isEmpty()) {
+        List<Question> questionList = questionRepository.getAll();
+        if (questionList.isEmpty()) {
             throw new IllegalStateException("No questions available");
         }
-    List<Question> questionList = new ArrayList<>(questions);
         int index = random.nextInt(questionList.size());
         return questionList.get(index);
     }
